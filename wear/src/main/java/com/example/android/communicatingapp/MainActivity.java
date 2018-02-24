@@ -1,8 +1,13 @@
 package com.example.android.communicatingapp;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.wearable.activity.WearableActivity;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -56,4 +61,17 @@ public class MainActivity extends WearableActivity implements DataApi.DataListen
     public void onDataChanged(DataEventBuffer dataEventBuffer) {
 
     }
+
+Intent intent = new Intent(this, MainActivity.class);
+    PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
+
+    NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+            .setSmallIcon(android.R.drawable.arrow_up_float)
+            .setContentTitle("NotifyMe")
+            .setContentText("Hey dude wsp ?")
+            .setContentIntent(pendingIntent);
+
+    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+    notificationManager.notify(0, notificationBuilder.build());
+
 }
